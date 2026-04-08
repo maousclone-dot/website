@@ -3,109 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FlowTrack — Quản Lí Dòng Tiền</title>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <title>Sổ Thu Chi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- SPLASH -->
 <div id="splash">
-  <div class="splash-content">
+  <div class="splash-inner">
     <div class="splash-logo">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
-      </svg>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
     </div>
-    <div class="splash-name">FlowTrack</div>
-    <div class="splash-tagline">Quản lí dòng tiền thông minh</div>
-    <div class="splash-bar"><div class="splash-progress"></div></div>
+    <div class="splash-name">Sổ Thu Chi</div>
+    <div class="splash-track"><div class="splash-bar"></div></div>
   </div>
 </div>
 
 <!-- AUTH -->
 <div id="auth">
-  <div class="auth-left">
-    <div class="auth-left-inner">
-      <div class="auth-brand">
-        <div class="auth-brand-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
-          </svg>
-        </div>
-        <span>FlowTrack</span>
-      </div>
-      <h1 class="auth-hero">Kiểm soát<br>dòng tiền<br>của bạn</h1>
-      <p class="auth-desc">Theo dõi thu chi, phân tích xu hướng và quản lý tài chính cá nhân một cách trực quan.</p>
-      <div class="auth-features">
-        <div class="auth-feat"><div class="auth-feat-ico" style="background:rgba(52,211,153,.15);color:#34d399">↓</div>Biểu đồ dòng tiền 7 ngày</div>
-        <div class="auth-feat"><div class="auth-feat-ico" style="background:rgba(96,165,250,.15);color:#60a5fa">≡</div>Phân tích theo tháng</div>
-        <div class="auth-feat"><div class="auth-feat-ico" style="background:rgba(251,146,60,.15);color:#fb923c">↑</div>Chuyển tiền tức thì</div>
-      </div>
-    </div>
+  <div class="auth-bg">
+    <div class="auth-blob b1"></div>
+    <div class="auth-blob b2"></div>
   </div>
-
-  <div class="auth-right">
-    <div class="auth-card">
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Đăng nhập</button>
-        <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Đăng ký</button>
+  <div class="auth-box">
+    <div class="auth-header">
+      <div class="auth-ico">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
       </div>
+      <h1 class="auth-title">Sổ Thu Chi</h1>
+      <p class="auth-sub">Ghi chép & thống kê doanh thu — chi phí</p>
+    </div>
 
-      <div class="auth-form active" id="form-login">
-        <div class="auth-form-title">Chào mừng trở lại 👋</div>
-        <div class="field">
-          <label class="field-label">Email</label>
-          <div class="field-wrap">
-            <svg class="field-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <input class="field-input" id="login-email" type="email" placeholder="you@example.com" autocomplete="email">
-          </div>
-        </div>
-        <div class="field">
-          <label class="field-label">Mật khẩu</label>
-          <div class="field-wrap">
-            <svg class="field-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <input class="field-input" id="login-pw" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
-          </div>
-        </div>
-        <div class="auth-error" id="login-error"></div>
-        <button class="auth-btn" id="login-btn" onclick="doLogin()">Đăng nhập</button>
-        <div class="auth-switch">Chưa có tài khoản? <span onclick="switchAuthTab('register')">Đăng ký miễn phí</span></div>
-      </div>
+    <div class="auth-tabs">
+      <button class="atab active" id="atab-login" onclick="switchAuthTab('login')">Đăng nhập</button>
+      <button class="atab" id="atab-reg" onclick="switchAuthTab('reg')">Đăng ký</button>
+    </div>
 
-      <div class="auth-form" id="form-register">
-        <div class="auth-form-title">Tạo tài khoản ✨</div>
-        <div class="field">
-          <label class="field-label">Tên hiển thị</label>
-          <div class="field-wrap">
-            <svg class="field-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <input class="field-input" id="reg-name" type="text" placeholder="Nguyễn Văn A" autocomplete="name">
-          </div>
-        </div>
-        <div class="field">
-          <label class="field-label">Email</label>
-          <div class="field-wrap">
-            <svg class="field-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <input class="field-input" id="reg-email" type="email" placeholder="you@example.com" autocomplete="email">
-          </div>
-        </div>
-        <div class="field">
-          <label class="field-label">Mật khẩu</label>
-          <div class="field-wrap">
-            <svg class="field-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <input class="field-input" id="reg-pw" type="password" placeholder="Ít nhất 6 ký tự" autocomplete="new-password" oninput="checkPwStrength()">
-          </div>
-          <div class="pw-row">
-            <div class="pw-track"><div class="pw-bar" id="pw-bar"></div></div>
-            <span class="pw-hint" id="pw-hint">Độ mạnh</span>
-          </div>
-        </div>
-        <div class="auth-error" id="reg-error"></div>
-        <button class="auth-btn" id="reg-btn" onclick="doRegister()">Tạo tài khoản</button>
-        <div class="auth-switch">Đã có tài khoản? <span onclick="switchAuthTab('login')">Đăng nhập</span></div>
+    <!-- Login -->
+    <div class="aform active" id="aform-login">
+      <div class="afield">
+        <label>Email</label>
+        <input id="l-email" type="email" placeholder="you@example.com" autocomplete="email">
       </div>
+      <div class="afield">
+        <label>Mật khẩu</label>
+        <input id="l-pw" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <div class="aerr" id="l-err"></div>
+      <button class="abtn" id="l-btn" onclick="doLogin()">Đăng nhập</button>
+      <div class="aswitch">Chưa có tài khoản? <span onclick="switchAuthTab('reg')">Đăng ký</span></div>
+    </div>
+
+    <!-- Register -->
+    <div class="aform" id="aform-reg">
+      <div class="afield">
+        <label>Tên của bạn</label>
+        <input id="r-name" type="text" placeholder="Nguyễn Văn A" autocomplete="name">
+      </div>
+      <div class="afield">
+        <label>Email</label>
+        <input id="r-email" type="email" placeholder="you@example.com" autocomplete="email">
+      </div>
+      <div class="afield">
+        <label>Mật khẩu</label>
+        <input id="r-pw" type="password" placeholder="Ít nhất 6 ký tự" autocomplete="new-password">
+      </div>
+      <div class="aerr" id="r-err"></div>
+      <button class="abtn" id="r-btn" onclick="doRegister()">Tạo tài khoản</button>
+      <div class="aswitch">Đã có tài khoản? <span onclick="switchAuthTab('login')">Đăng nhập</span></div>
     </div>
   </div>
 </div>
@@ -113,54 +80,42 @@
 <!-- APP -->
 <div id="app">
   <aside class="sidebar">
-    <div class="sb-logo">
-      <div class="sb-logo-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
-        </svg>
+    <div class="sb-brand">
+      <div class="sb-brand-ico">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
       </div>
-      <span class="sb-logo-text">FlowTrack</span>
+      <span>Sổ Thu Chi</span>
     </div>
 
     <nav class="sb-nav">
-      <div class="sb-section">Tổng quan</div>
-      <div class="nav-item active" onclick="switchPage('home',this)">
-        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      <div class="snav-section">Tổng quan</div>
+      <div class="snav-item active" onclick="gotoPage('dashboard',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         Dashboard
       </div>
-      <div class="nav-item" onclick="switchPage('cashflow',this)">
-        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-        Dòng tiền
+      <div class="snav-item" onclick="gotoPage('stats',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Thống kê
       </div>
 
-      <div class="sb-section">Giao dịch</div>
-      <div class="nav-item" onclick="switchPage('send',this)">
-        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        Chuyển tiền
+      <div class="snav-section">Ghi chép</div>
+      <div class="snav-item" onclick="gotoPage('ledger',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Sổ ghi chép
+        <span class="snav-badge" id="today-badge" style="display:none">0</span>
       </div>
-      <div class="nav-item" onclick="switchPage('receive',this)">
-        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        Nhận tiền
-      </div>
-      <div class="nav-item" onclick="switchPage('history',this)">
-        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        Lịch sử
-        <span class="nav-badge" id="history-badge" style="display:none">0</span>
-      </div>
-
-      <div class="sb-section">Tài khoản</div>
-      <div class="nav-item" onclick="switchPage('profile',this)">
-        <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        Hồ sơ
+      <div class="snav-item" onclick="openModal('add')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Thêm khoản mới
       </div>
     </nav>
 
-    <div class="sb-footer">
-      <div class="sb-user" onclick="switchPage('profile',null)">
-        <div class="sb-avatar" id="sb-avatar">?</div>
+    <div class="sb-user-area">
+      <div class="sb-user" onclick="gotoPage('settings',null)">
+        <div class="sb-av" id="sb-av">?</div>
         <div class="sb-user-info">
-          <div class="sb-name" id="sb-name">Đang tải...</div>
-          <div class="sb-addr" id="sb-addr">—</div>
+          <div class="sb-uname" id="sb-uname">—</div>
+          <div class="sb-uemail" id="sb-uemail">—</div>
         </div>
       </div>
       <button class="sb-logout" onclick="doLogout()" title="Đăng xuất">
@@ -170,105 +125,112 @@
   </aside>
 
   <main class="main">
-    <header class="topnav">
-      <div class="topnav-title" id="page-label">Dashboard</div>
-      <div class="topnav-right">
-        <div class="topnav-user" onclick="switchPage('profile',null)">
-          <div class="topnav-avatar" id="topnav-avatar">?</div>
-          <span id="topnav-name">—</span>
-        </div>
+    <header class="topbar">
+      <div class="topbar-title" id="page-title">Dashboard</div>
+      <div class="topbar-actions">
+        <button class="add-btn" onclick="openModal('add')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Thêm khoản
+        </button>
       </div>
     </header>
 
-    <!-- PAGE: HOME -->
-    <div class="page active" id="page-home">
-      <div class="stats-grid">
-        <div class="stat-card balance-card">
-          <div class="stat-label">Số dư hiện tại</div>
-          <div class="stat-value" id="stat-balance">0 ₫</div>
-          <div class="stat-note">Tài khoản khả dụng</div>
-          <div class="stat-bg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+    <!-- ── PAGE: DASHBOARD ── -->
+    <div class="page active" id="page-dashboard">
+      <!-- KPI Row -->
+      <div class="kpi-row">
+        <div class="kpi-card kpi-net">
+          <div class="kpi-label">Lợi nhuận ròng</div>
+          <div class="kpi-val" id="kpi-net">0 ₫</div>
+          <div class="kpi-sub" id="kpi-net-sub">Tổng thu − Tổng chi</div>
         </div>
-        <div class="stat-card income-card">
-          <div class="stat-label">Tổng nhận</div>
-          <div class="stat-value" id="stat-received">0 ₫</div>
-          <div class="stat-note" id="stat-recv-count">0 giao dịch</div>
-          <div class="stat-bg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+        <div class="kpi-card kpi-thu">
+          <div class="kpi-top">
+            <div class="kpi-dot thu-dot"></div>
+            <span class="kpi-label">Tổng thu</span>
+          </div>
+          <div class="kpi-val" id="kpi-thu">0 ₫</div>
+          <div class="kpi-sub" id="kpi-thu-sub">0 khoản</div>
         </div>
-        <div class="stat-card expense-card">
-          <div class="stat-label">Tổng chi</div>
-          <div class="stat-value" id="stat-sent">0 ₫</div>
-          <div class="stat-note" id="stat-send-count">0 giao dịch</div>
-          <div class="stat-bg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
+        <div class="kpi-card kpi-chi">
+          <div class="kpi-top">
+            <div class="kpi-dot chi-dot"></div>
+            <span class="kpi-label">Tổng chi</span>
+          </div>
+          <div class="kpi-val" id="kpi-chi">0 ₫</div>
+          <div class="kpi-sub" id="kpi-chi-sub">0 khoản</div>
         </div>
-        <div class="stat-card month-card">
-          <div class="stat-label">Tháng này</div>
-          <div class="stat-value" id="stat-month-count">0</div>
-          <div class="stat-note" id="stat-month-label">giao dịch</div>
-          <div class="stat-bg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="kpi-card kpi-month">
+          <div class="kpi-top">
+            <div class="kpi-dot month-dot"></div>
+            <span class="kpi-label" id="kpi-month-label">Tháng này</span>
+          </div>
+          <div class="kpi-val" id="kpi-month">0 ₫</div>
+          <div class="kpi-sub" id="kpi-month-sub">0 giao dịch</div>
         </div>
       </div>
 
+      <!-- Charts row -->
       <div class="charts-row">
         <div class="card chart-card">
           <div class="card-head">
             <div>
-              <div class="card-title">Dòng tiền 7 ngày qua</div>
-              <div class="card-sub">Thu nhập &amp; chi tiêu theo ngày</div>
+              <div class="card-title">Thu chi 7 ngày</div>
+              <div class="card-sub">Biến động dòng tiền theo ngày</div>
             </div>
-            <div class="chart-legend">
-              <div class="legend-dot-item"><div class="ldot" style="background:#34d399"></div>Nhận</div>
-              <div class="legend-dot-item"><div class="ldot" style="background:#f87171"></div>Gửi</div>
+            <div class="legend-row">
+              <span class="leg thu-leg">Thu</span>
+              <span class="leg chi-leg">Chi</span>
             </div>
           </div>
-          <div class="chart-wrap"><canvas id="stats-chart"></canvas></div>
+          <div class="chart-wrap"><canvas id="chart-7d"></canvas></div>
         </div>
         <div class="card donut-card">
           <div class="card-head">
-            <div class="card-title">Phân bổ</div>
-            <div class="card-sub">Tỉ lệ thu / chi / còn</div>
+            <div class="card-title">Phân bổ tháng này</div>
+            <div class="card-sub">Tỉ lệ thu / chi</div>
           </div>
-          <div class="donut-center"><canvas id="donut-chart" width="130" height="130"></canvas></div>
-          <div class="donut-leg">
-            <div class="donut-leg-item"><div class="dlot" style="background:#34d399"></div><span>Nhận</span><b id="dl-recv">—</b></div>
-            <div class="donut-leg-item"><div class="dlot" style="background:#f87171"></div><span>Gửi</span><b id="dl-sent">—</b></div>
-            <div class="donut-leg-item"><div class="dlot" style="background:#60a5fa"></div><span>Số dư</span><b id="dl-bal">—</b></div>
+          <div class="donut-wrap"><canvas id="chart-donut" width="140" height="140"></canvas></div>
+          <div class="donut-labels">
+            <div class="dl-row"><span class="dl-dot" style="background:var(--thu)"></span><span>Thu vào</span><b id="dl-thu">—</b></div>
+            <div class="dl-row"><span class="dl-dot" style="background:var(--chi)"></span><span>Chi ra</span><b id="dl-chi">—</b></div>
           </div>
         </div>
       </div>
 
+      <!-- Recent entries -->
       <div class="card">
         <div class="card-head">
           <div>
-            <div class="card-title">Giao dịch gần đây</div>
-            <div class="card-sub">5 giao dịch mới nhất</div>
+            <div class="card-title">Gần đây</div>
+            <div class="card-sub">10 khoản mới nhất</div>
           </div>
-          <button class="see-all-btn" onclick="switchPage('history',document.querySelector('[onclick*=history]'))">Xem tất cả →</button>
+          <button class="see-all" onclick="gotoPage('ledger', document.querySelector('[onclick*=ledger]'))">Xem tất cả →</button>
         </div>
-        <div id="recent-tx"><div class="empty-state">Chưa có giao dịch nào</div></div>
+        <div id="recent-list"><div class="empty">Chưa có khoản nào</div></div>
       </div>
     </div>
 
-    <!-- PAGE: CASHFLOW -->
-    <div class="page" id="page-cashflow">
-      <div class="cf-top">
-        <div class="cf-net-card">
-          <div class="cf-net-label">Dòng tiền ròng (Net Flow)</div>
-          <div class="cf-net-val" id="cf-net">+0 ₫</div>
-          <div class="cf-net-sub">Tổng nhận − Tổng chi</div>
+    <!-- ── PAGE: STATS ── -->
+    <div class="page" id="page-stats">
+      <div class="stats-top">
+        <div class="card stat-net-card">
+          <div class="sn-label">Dòng tiền ròng</div>
+          <div class="sn-val" id="st-net">+0 ₫</div>
+          <div class="sn-sub">Tổng thu − Tổng chi (toàn thời gian)</div>
         </div>
-        <div class="cf-minis">
-          <div class="cf-mini in">
-            <div class="cf-mini-label">↓ Tổng nhận</div>
-            <div class="cf-mini-val" id="cf-total-in">0 ₫</div>
+        <div class="stat-minis">
+          <div class="stat-mini thu-mini">
+            <div class="sm-label">↑ Tổng thu</div>
+            <div class="sm-val" id="st-thu">0 ₫</div>
           </div>
-          <div class="cf-mini out">
-            <div class="cf-mini-label">↑ Tổng chi</div>
-            <div class="cf-mini-val" id="cf-total-out">0 ₫</div>
+          <div class="stat-mini chi-mini">
+            <div class="sm-label">↓ Tổng chi</div>
+            <div class="sm-val" id="st-chi">0 ₫</div>
           </div>
-          <div class="cf-mini neutral">
-            <div class="cf-mini-label">⇄ Giao dịch</div>
-            <div class="cf-mini-val" id="cf-count">0</div>
+          <div class="stat-mini neutral-mini">
+            <div class="sm-label">⇄ Số khoản</div>
+            <div class="sm-val" id="st-count">0</div>
           </div>
         </div>
       </div>
@@ -278,164 +240,121 @@
           <div class="card-title">Thu chi theo tháng</div>
           <div class="card-sub">6 tháng gần nhất</div>
         </div>
-        <div class="chart-wrap" style="height:240px"><canvas id="monthly-chart"></canvas></div>
+        <div class="chart-wrap" style="height:240px"><canvas id="chart-monthly"></canvas></div>
+      </div>
+
+      <div class="stats-cats-row">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Danh mục thu</div></div>
+          <div id="cat-thu-list"><div class="empty">Chưa có dữ liệu</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Danh mục chi</div></div>
+          <div id="cat-chi-list"><div class="empty">Chưa có dữ liệu</div></div>
+        </div>
       </div>
 
       <div class="card">
-        <div class="card-head"><div class="card-title">Bảng dòng tiền theo tháng</div></div>
+        <div class="card-head"><div class="card-title">Bảng tổng hợp tháng</div></div>
         <div class="table-wrap">
-          <table class="flow-table">
-            <thead><tr><th>Tháng</th><th>Nhận vào</th><th>Chuyển ra</th><th>Dòng ròng</th><th>GD</th></tr></thead>
-            <tbody id="flow-table-body"><tr><td colspan="5" class="empty-state">Chưa có dữ liệu</td></tr></tbody>
+          <table class="sum-table">
+            <thead><tr><th>Tháng</th><th>Thu vào</th><th>Chi ra</th><th>Lợi nhuận</th><th>Số khoản</th></tr></thead>
+            <tbody id="monthly-tbody"><tr><td colspan="5" class="empty">Chưa có dữ liệu</td></tr></tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- PAGE: SEND -->
-    <div class="page" id="page-send">
-      <div class="form-layout">
-        <div class="form-card">
-          <div class="form-card-head">
-            <div class="form-card-title">Chuyển tiền</div>
-            <div class="form-card-sub">Gửi VNĐ tới tài khoản khác ngay lập tức</div>
-          </div>
-          <div class="form-body">
-            <div class="field">
-              <label class="field-label">Số tài khoản nhận</label>
-              <div class="field-wrap">
-                <svg class="field-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-                <input class="field-input" id="send-addr" type="text" placeholder="Nhập số tài khoản 14 chữ số..." oninput="onAddressInput()">
-              </div>
-              <div id="addr-preview" style="display:none" class="addr-preview"></div>
-            </div>
-            <div class="field">
-              <label class="field-label">Số tiền (VNĐ)</label>
-              <div class="amount-row">
-                <input class="amount-input" id="send-amount" type="number" placeholder="0" oninput="updateSendPreview()">
-                <button class="max-btn" onclick="setMax()">TỐI ĐA</button>
-              </div>
-              <div class="amount-hint" id="send-usd">Nhập số tiền cần chuyển</div>
-            </div>
-            <div class="fee-box">
-              <div class="fee-row"><span>Phí giao dịch</span><span class="fee-free">Miễn phí</span></div>
-              <div class="fee-row fee-total"><span>Tổng cộng</span><span id="send-total">—</span></div>
-            </div>
-            <button class="submit-btn" id="send-btn" onclick="handleSend()">Xác nhận chuyển →</button>
-          </div>
-        </div>
-
-        <div class="send-aside">
-          <div class="send-balance-card">
-            <div class="send-bal-label">Số dư hiện tại</div>
-            <div class="send-bal-val" id="send-page-balance">0 ₫</div>
-          </div>
-          <div class="send-tip">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            Giao dịch xử lý tức thì và không thể hoàn tác.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PAGE: RECEIVE -->
-    <div class="page" id="page-receive">
-      <div class="receive-layout">
-        <div class="form-card receive-card">
-          <div class="form-card-head">
-            <div class="form-card-title">Nhận tiền</div>
-            <div class="form-card-sub">Chia sẻ số tài khoản để nhận tiền</div>
-          </div>
-          <div class="receive-body">
-            <div class="network-pill">
-              <div class="network-dot"></div>
-              Mạng đang hoạt động bình thường
-            </div>
-            <div class="qr-frame">
-              <div class="qr-logo-badge">F</div>
-              <div id="qr-wrap-inner" class="qr-canvas"></div>
-            </div>
-            <div class="recv-lbl">Số tài khoản của bạn</div>
-            <div class="recv-addr-box" id="recv-addr" onclick="copyAddress()">Đang tải...</div>
-            <button class="recv-copy-btn" onclick="copyAddress()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-              Sao chép số tài khoản
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PAGE: HISTORY -->
-    <div class="page" id="page-history">
-      <div class="history-bar">
+    <!-- ── PAGE: LEDGER ── -->
+    <div class="page" id="page-ledger">
+      <div class="ledger-toolbar">
         <div class="filter-pills">
-          <button class="filter-pill active" onclick="filterTx('all',this)">Tất cả</button>
-          <button class="filter-pill" onclick="filterTx('recv',this)">Nhận vào</button>
-          <button class="filter-pill" onclick="filterTx('send',this)">Chuyển ra</button>
+          <button class="fpill active" onclick="filterEntries('all',this)">Tất cả</button>
+          <button class="fpill" onclick="filterEntries('thu',this)">Thu vào</button>
+          <button class="fpill" onclick="filterEntries('chi',this)">Chi ra</button>
         </div>
-        <div class="history-sum" id="history-summary"></div>
+        <div class="ledger-tools">
+          <input class="search-input" id="search-input" type="text" placeholder="Tìm kiếm..." oninput="renderLedger()">
+          <select class="month-select" id="month-filter" onchange="renderLedger()">
+            <option value="">Tất cả tháng</option>
+          </select>
+        </div>
       </div>
-      <div class="card" id="history-list"></div>
+      <div class="ledger-summary-bar" id="ledger-sum-bar"></div>
+      <div class="card" id="ledger-list"><div class="empty">Chưa có khoản nào</div></div>
     </div>
 
-    <!-- PAGE: PROFILE -->
-    <div class="page" id="page-profile">
-      <div class="profile-layout">
-        <div class="profile-hero">
-          <div class="profile-avatar" id="profile-avatar">?</div>
-          <div class="profile-name" id="profile-name">—</div>
-          <div class="profile-email" id="profile-email">—</div>
-          <div class="profile-addr-chip" onclick="copyProfileAddr()">
-            <div>
-              <div class="pac-label">Số tài khoản</div>
-              <div class="pac-val" id="profile-addr">—</div>
+    <!-- ── PAGE: SETTINGS ── -->
+    <div class="page" id="page-settings">
+      <div class="settings-layout">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Thông tin tài khoản</div></div>
+          <div class="settings-body">
+            <div class="sfield">
+              <label>Tên hiển thị</label>
+              <input id="s-name" type="text" placeholder="Tên của bạn">
             </div>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          </div>
-          <div class="profile-stats">
-            <div class="ps-item"><div class="ps-val" id="profile-stat-total" style="color:#34d399">0 ₫</div><div class="ps-label">Số dư</div></div>
-            <div class="ps-div"></div>
-            <div class="ps-item"><div class="ps-val" id="profile-stat-txs">0</div><div class="ps-label">Giao dịch</div></div>
-            <div class="ps-div"></div>
-            <div class="ps-item"><div class="ps-val" id="profile-stat-recv" style="color:#34d399">0 ₫</div><div class="ps-label">Tổng nhận</div></div>
-          </div>
-        </div>
-
-        <div class="form-card">
-          <div class="form-card-head"><div class="form-card-title">Thông tin tài khoản</div></div>
-          <div class="form-body">
-            <div class="field">
-              <label class="field-label">Tên hiển thị</label>
-              <div class="field-wrap">
-                <svg class="field-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <input class="field-input" id="profile-edit-name" type="text" placeholder="Tên của bạn">
-              </div>
+            <div class="sfield">
+              <label>Email (không thể đổi)</label>
+              <input id="s-email" type="email" disabled>
             </div>
-            <div class="field">
-              <label class="field-label">Email (không thể đổi)</label>
-              <div class="field-wrap">
-                <svg class="field-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                <input class="field-input" id="profile-edit-email" type="email" disabled style="opacity:.5;cursor:not-allowed">
-              </div>
-            </div>
-            <button class="submit-btn" id="save-profile-btn" onclick="saveProfile()">Lưu thay đổi</button>
-          </div>
-        </div>
-
-        <div class="form-card">
-          <div class="form-card-head">
-            <div class="form-card-title" style="color:#f87171">Vùng nguy hiểm</div>
-            <div class="form-card-sub">Hành động không thể khôi phục.</div>
-          </div>
-          <div class="form-body">
-            <button class="danger-btn" onclick="deleteAccount()">Xóa tài khoản vĩnh viễn</button>
+            <button class="save-btn" id="s-save-btn" onclick="saveSettings()">Lưu thay đổi</button>
           </div>
         </div>
       </div>
     </div>
-
   </main>
+</div>
+
+<!-- MODAL: ADD / EDIT ENTRY -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title" id="modal-title">Thêm khoản mới</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+
+    <div class="modal-type-switch">
+      <button class="mtype-btn active" id="mtype-thu" onclick="setEntryType('thu')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Thu vào
+      </button>
+      <button class="mtype-btn" id="mtype-chi" onclick="setEntryType('chi')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
+        Chi ra
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="mfield">
+        <label>Số tiền (VNĐ) <span class="req">*</span></label>
+        <input class="amount-inp" id="m-amount" type="number" placeholder="0" oninput="updateAmountPreview()">
+        <div class="amount-preview" id="m-amount-preview"></div>
+      </div>
+
+      <div class="mfield-row">
+        <div class="mfield">
+          <label>Danh mục <span class="req">*</span></label>
+          <select id="m-category"></select>
+        </div>
+        <div class="mfield">
+          <label>Ngày <span class="req">*</span></label>
+          <input id="m-date" type="date">
+        </div>
+      </div>
+
+      <div class="mfield">
+        <label>Ghi chú</label>
+        <input id="m-note" type="text" placeholder="Mô tả ngắn...">
+      </div>
+    </div>
+
+    <input type="hidden" id="m-edit-id">
+    <div class="modal-foot">
+      <button class="modal-cancel" onclick="closeModal()">Hủy</button>
+      <button class="modal-save" id="modal-save-btn" onclick="saveEntry()">Lưu</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
