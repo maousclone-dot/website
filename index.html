@@ -1,587 +1,363 @@
-/* ============================================================
-   style.css — Sổ Thu Chi
-   Aesthetic: Refined dark ledger — editorial + utilitarian
-   Fonts: Instrument Serif (display) + DM Sans (body)
-   ============================================================ */
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sổ Thu Chi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-:root{
-  --bg:     #0d1117;
-  --bg2:    #111827;
-  --card:   #161d2b;
-  --card2:  #1c2438;
-  --border: #1e2d40;
-  --border2:#243347;
-  --text:   #e2e8f0;
-  --text2:  #94a3b8;
-  --text3:  #475569;
-  --thu:    #22c55e;
-  --thu-bg: rgba(34,197,94,.1);
-  --chi:    #ef4444;
-  --chi-bg: rgba(239,68,68,.1);
-  --accent: #3b82f6;
-  --accent2:#60a5fa;
-  --gold:   #f59e0b;
-  --radius: 12px;
-  --sh:     0 1px 3px rgba(0,0,0,.4);
-  --sh2:    0 8px 32px rgba(0,0,0,.5);
-}
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-inner">
+    <div class="splash-logo">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+    </div>
+    <div class="splash-name">Sổ Thu Chi</div>
+    <div class="splash-track"><div class="splash-bar"></div></div>
+  </div>
+</div>
 
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--bg);color:var(--text);
-  height:100vh;overflow:hidden;
-  display:flex;font-size:14px;line-height:1.5;
-}
+<!-- AUTH -->
+<div id="auth">
+  <div class="auth-bg">
+    <div class="auth-blob b1"></div>
+    <div class="auth-blob b2"></div>
+  </div>
+  <div class="auth-box">
+    <div class="auth-header">
+      <div class="auth-ico">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <h1 class="auth-title">Sổ Thu Chi</h1>
+      <p class="auth-sub">Ghi chép & thống kê doanh thu — chi phí</p>
+    </div>
 
-/* ── SPLASH ── */
-#splash{
-  position:fixed;inset:0;z-index:900;
-  background:var(--bg);
-  display:flex;align-items:center;justify-content:center;
-  transition:opacity .5s ease;
-}
-#splash.out{opacity:0;pointer-events:none}
-.splash-inner{text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
-.splash-logo{
-  width:64px;height:64px;border-radius:18px;
-  background:linear-gradient(135deg,#1a2e4a,#0d1f36);
-  border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--accent2);
-  box-shadow:0 0 40px rgba(59,130,246,.2);
-  animation:breathe 2s ease-in-out infinite;
-}
-@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(.95)}}
-.splash-name{
-  font-family:'Instrument Serif',serif;
-  font-size:28px;letter-spacing:-.3px;color:var(--text);
-}
-.splash-track{width:100px;height:2px;background:var(--border);border-radius:2px;overflow:hidden}
-.splash-bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;animation:load 1.2s ease forwards}
-@keyframes load{0%{width:0}100%{width:100%}}
+    <div class="auth-tabs">
+      <button class="atab active" id="atab-login" onclick="switchAuthTab('login')">Đăng nhập</button>
+      <button class="atab" id="atab-reg" onclick="switchAuthTab('reg')">Đăng ký</button>
+    </div>
 
-/* ── AUTH ── */
-#auth{
-  position:fixed;inset:0;z-index:800;
-  display:none;align-items:center;justify-content:center;
-  background:var(--bg);
-}
-#auth.on{display:flex}
-.auth-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.auth-blob{
-  position:absolute;border-radius:50%;
-  filter:blur(100px);opacity:.12;
-}
-.b1{width:500px;height:500px;background:var(--accent);top:-100px;right:-100px}
-.b2{width:400px;height:400px;background:var(--thu);bottom:-80px;left:-80px}
+    <!-- Login -->
+    <div class="aform active" id="aform-login">
+      <div class="afield">
+        <label>Email</label>
+        <input id="l-email" type="email" placeholder="you@example.com" autocomplete="email">
+      </div>
+      <div class="afield">
+        <label>Mật khẩu</label>
+        <input id="l-pw" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <div class="aerr" id="l-err"></div>
+      <button class="abtn" id="l-btn" onclick="doLogin()">Đăng nhập</button>
+      <div class="aswitch">Chưa có tài khoản? <span onclick="switchAuthTab('reg')">Đăng ký</span></div>
+    </div>
 
-.auth-box{
-  position:relative;z-index:1;
-  width:100%;max-width:420px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:40px 36px;
-  box-shadow:var(--sh2);
-}
-.auth-header{text-align:center;margin-bottom:28px}
-.auth-ico{
-  width:52px;height:52px;border-radius:14px;
-  background:linear-gradient(135deg,#1a2e4a,#0d1f36);
-  border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--accent2);margin:0 auto 16px;
-}
-.auth-title{
-  font-family:'Instrument Serif',serif;
-  font-size:26px;letter-spacing:-.3px;color:var(--text);
-  margin-bottom:6px;
-}
-.auth-sub{font-size:13px;color:var(--text3)}
+    <!-- Register -->
+    <div class="aform" id="aform-reg">
+      <div class="afield">
+        <label>Tên của bạn</label>
+        <input id="r-name" type="text" placeholder="Nguyễn Văn A" autocomplete="name">
+      </div>
+      <div class="afield">
+        <label>Email</label>
+        <input id="r-email" type="email" placeholder="you@example.com" autocomplete="email">
+      </div>
+      <div class="afield">
+        <label>Mật khẩu</label>
+        <input id="r-pw" type="password" placeholder="Ít nhất 6 ký tự" autocomplete="new-password">
+      </div>
+      <div class="aerr" id="r-err"></div>
+      <button class="abtn" id="r-btn" onclick="doRegister()">Tạo tài khoản</button>
+      <div class="aswitch">Đã có tài khoản? <span onclick="switchAuthTab('login')">Đăng nhập</span></div>
+    </div>
+  </div>
+</div>
 
-.auth-tabs{display:flex;background:var(--bg2);border-radius:10px;padding:3px;gap:3px;margin-bottom:24px}
-.atab{
-  flex:1;padding:8px;border:none;background:transparent;
-  color:var(--text3);font-size:13px;font-weight:500;
-  border-radius:8px;cursor:pointer;transition:all .2s;
-  font-family:'DM Sans',sans-serif;
-}
-.atab.active{background:var(--card2);color:var(--text);box-shadow:var(--sh)}
+<!-- APP -->
+<div id="app">
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <div class="sb-brand-ico">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <span>Sổ Thu Chi</span>
+    </div>
 
-.aform{display:none;flex-direction:column;gap:14px}
-.aform.active{display:flex}
+    <nav class="sb-nav">
+      <div class="snav-section">Tổng quan</div>
+      <div class="snav-item active" onclick="gotoPage('dashboard',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </div>
+      <div class="snav-item" onclick="gotoPage('stats',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Thống kê
+      </div>
 
-.afield{display:flex;flex-direction:column;gap:6px}
-.afield label{font-size:12px;font-weight:500;color:var(--text2);letter-spacing:.2px}
-.afield input{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:9px;padding:10px 14px;
-  color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;
-  transition:border-color .2s;outline:none;
-}
-.afield input:focus{border-color:var(--accent)}
+      <div class="snav-section">Ghi chép</div>
+      <div class="snav-item" onclick="gotoPage('ledger',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Sổ ghi chép
+        <span class="snav-badge" id="today-badge" style="display:none">0</span>
+      </div>
+      <div class="snav-item" onclick="openModal('add')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Thêm khoản mới
+      </div>
+    </nav>
 
-.aerr{font-size:12px;color:var(--chi);min-height:16px}
+    <div class="sb-user-area">
+      <div class="sb-user" onclick="gotoPage('settings',null)">
+        <div class="sb-av" id="sb-av">?</div>
+        <div class="sb-user-info">
+          <div class="sb-uname" id="sb-uname">—</div>
+          <div class="sb-uemail" id="sb-uemail">—</div>
+        </div>
+      </div>
+      <button class="sb-logout" onclick="doLogout()" title="Đăng xuất">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </aside>
 
-.abtn{
-  margin-top:4px;padding:12px;
-  background:linear-gradient(135deg,var(--accent),#2563eb);
-  color:#fff;border:none;border-radius:10px;
-  font-size:14px;font-weight:600;cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  transition:opacity .2s,transform .1s;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-}
-.abtn:hover{opacity:.9}
-.abtn:active{transform:scale(.98)}
-.abtn:disabled{opacity:.5;cursor:not-allowed}
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-title" id="page-title">Dashboard</div>
+      <div class="topbar-actions">
+        <button class="add-btn" onclick="openModal('add')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Thêm khoản
+        </button>
+      </div>
+    </header>
 
-.aswitch{font-size:12px;color:var(--text3);text-align:center}
-.aswitch span{color:var(--accent2);cursor:pointer;text-decoration:underline}
+    <!-- ── PAGE: DASHBOARD ── -->
+    <div class="page active" id="page-dashboard">
+      <!-- KPI Row -->
+      <div class="kpi-row">
+        <div class="kpi-card kpi-net">
+          <div class="kpi-label">Lợi nhuận ròng</div>
+          <div class="kpi-val" id="kpi-net">0 ₫</div>
+          <div class="kpi-sub" id="kpi-net-sub">Tổng thu − Tổng chi</div>
+        </div>
+        <div class="kpi-card kpi-thu">
+          <div class="kpi-top">
+            <div class="kpi-dot thu-dot"></div>
+            <span class="kpi-label">Tổng thu</span>
+          </div>
+          <div class="kpi-val" id="kpi-thu">0 ₫</div>
+          <div class="kpi-sub" id="kpi-thu-sub">0 khoản</div>
+        </div>
+        <div class="kpi-card kpi-chi">
+          <div class="kpi-top">
+            <div class="kpi-dot chi-dot"></div>
+            <span class="kpi-label">Tổng chi</span>
+          </div>
+          <div class="kpi-val" id="kpi-chi">0 ₫</div>
+          <div class="kpi-sub" id="kpi-chi-sub">0 khoản</div>
+        </div>
+        <div class="kpi-card kpi-month">
+          <div class="kpi-top">
+            <div class="kpi-dot month-dot"></div>
+            <span class="kpi-label" id="kpi-month-label">Tháng này</span>
+          </div>
+          <div class="kpi-val" id="kpi-month">0 ₫</div>
+          <div class="kpi-sub" id="kpi-month-sub">0 giao dịch</div>
+        </div>
+      </div>
 
-/* ── APP SHELL ── */
-#app{display:none;width:100%;height:100vh;overflow:hidden}
-#app.on{display:flex}
+      <!-- Charts row -->
+      <div class="charts-row">
+        <div class="card chart-card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">Thu chi 7 ngày</div>
+              <div class="card-sub">Biến động dòng tiền theo ngày</div>
+            </div>
+            <div class="legend-row">
+              <span class="leg thu-leg">Thu</span>
+              <span class="leg chi-leg">Chi</span>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="chart-7d"></canvas></div>
+        </div>
+        <div class="card donut-card">
+          <div class="card-head">
+            <div class="card-title">Phân bổ tháng này</div>
+            <div class="card-sub">Tỉ lệ thu / chi</div>
+          </div>
+          <div class="donut-wrap"><canvas id="chart-donut" width="140" height="140"></canvas></div>
+          <div class="donut-labels">
+            <div class="dl-row"><span class="dl-dot" style="background:var(--thu)"></span><span>Thu vào</span><b id="dl-thu">—</b></div>
+            <div class="dl-row"><span class="dl-dot" style="background:var(--chi)"></span><span>Chi ra</span><b id="dl-chi">—</b></div>
+          </div>
+        </div>
+      </div>
 
-/* ── SIDEBAR ── */
-.sidebar{
-  width:220px;flex-shrink:0;
-  background:var(--card);
-  border-right:1px solid var(--border);
-  display:flex;flex-direction:column;
-  overflow:hidden;
-}
-.sb-brand{
-  display:flex;align-items:center;gap:10px;
-  padding:20px 18px 16px;
-  font-family:'Instrument Serif',serif;
-  font-size:17px;color:var(--text);
-  border-bottom:1px solid var(--border);
-}
-.sb-brand-ico{
-  width:30px;height:30px;border-radius:8px;
-  background:linear-gradient(135deg,#1a2e4a,#0d1f36);
-  border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--accent2);flex-shrink:0;
-}
+      <!-- Recent entries -->
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Gần đây</div>
+            <div class="card-sub">10 khoản mới nhất</div>
+          </div>
+          <button class="see-all" onclick="gotoPage('ledger', document.querySelector('[onclick*=ledger]'))">Xem tất cả →</button>
+        </div>
+        <div id="recent-list"><div class="empty">Chưa có khoản nào</div></div>
+      </div>
+    </div>
 
-.sb-nav{flex:1;padding:12px 10px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
-.snav-section{
-  font-size:10px;font-weight:600;letter-spacing:.8px;
-  color:var(--text3);text-transform:uppercase;
-  padding:10px 8px 4px;
-}
-.snav-item{
-  display:flex;align-items:center;gap:10px;
-  padding:9px 10px;border-radius:9px;
-  color:var(--text3);font-size:13px;font-weight:500;
-  cursor:pointer;transition:all .15s;position:relative;
-}
-.snav-item svg{width:16px;height:16px;flex-shrink:0}
-.snav-item:hover{background:var(--card2);color:var(--text2)}
-.snav-item.active{background:rgba(59,130,246,.12);color:var(--accent2)}
-.snav-badge{
-  margin-left:auto;
-  background:var(--chi);color:#fff;
-  font-size:10px;font-weight:700;
-  padding:1px 6px;border-radius:10px;
-}
+    <!-- ── PAGE: STATS ── -->
+    <div class="page" id="page-stats">
+      <div class="stats-top">
+        <div class="card stat-net-card">
+          <div class="sn-label">Dòng tiền ròng</div>
+          <div class="sn-val" id="st-net">+0 ₫</div>
+          <div class="sn-sub">Tổng thu − Tổng chi (toàn thời gian)</div>
+        </div>
+        <div class="stat-minis">
+          <div class="stat-mini thu-mini">
+            <div class="sm-label">↑ Tổng thu</div>
+            <div class="sm-val" id="st-thu">0 ₫</div>
+          </div>
+          <div class="stat-mini chi-mini">
+            <div class="sm-label">↓ Tổng chi</div>
+            <div class="sm-val" id="st-chi">0 ₫</div>
+          </div>
+          <div class="stat-mini neutral-mini">
+            <div class="sm-label">⇄ Số khoản</div>
+            <div class="sm-val" id="st-count">0</div>
+          </div>
+        </div>
+      </div>
 
-.sb-user-area{
-  border-top:1px solid var(--border);
-  padding:12px 10px;
-  display:flex;align-items:center;gap:8px;
-}
-.sb-user{
-  flex:1;display:flex;align-items:center;gap:10px;
-  cursor:pointer;min-width:0;
-}
-.sb-av{
-  width:32px;height:32px;border-radius:50%;flex-shrink:0;
-  background:linear-gradient(135deg,var(--accent),#2563eb);
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:700;color:#fff;
-}
-.sb-user-info{min-width:0}
-.sb-uname{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sb-uemail{font-size:10px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sb-logout{
-  width:30px;height:30px;border-radius:8px;
-  background:transparent;border:1px solid var(--border);
-  color:var(--text3);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;flex-shrink:0;
-}
-.sb-logout:hover{background:var(--chi-bg);color:var(--chi);border-color:var(--chi)}
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Thu chi theo tháng</div>
+          <div class="card-sub">6 tháng gần nhất</div>
+        </div>
+        <div class="chart-wrap" style="height:240px"><canvas id="chart-monthly"></canvas></div>
+      </div>
 
-/* ── MAIN ── */
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+      <div class="stats-cats-row">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Danh mục thu</div></div>
+          <div id="cat-thu-list"><div class="empty">Chưa có dữ liệu</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title">Danh mục chi</div></div>
+          <div id="cat-chi-list"><div class="empty">Chưa có dữ liệu</div></div>
+        </div>
+      </div>
 
-.topbar{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:16px 28px;
-  border-bottom:1px solid var(--border);
-  background:var(--card);
-  flex-shrink:0;
-}
-.topbar-title{
-  font-family:'Instrument Serif',serif;
-  font-size:22px;letter-spacing:-.3px;
-}
-.add-btn{
-  display:flex;align-items:center;gap:7px;
-  padding:8px 16px;border-radius:9px;
-  background:linear-gradient(135deg,var(--accent),#2563eb);
-  color:#fff;border:none;cursor:pointer;
-  font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;
-  transition:opacity .2s,transform .1s;
-}
-.add-btn:hover{opacity:.88}
-.add-btn:active{transform:scale(.97)}
+      <div class="card">
+        <div class="card-head"><div class="card-title">Bảng tổng hợp tháng</div></div>
+        <div class="table-wrap">
+          <table class="sum-table">
+            <thead><tr><th>Tháng</th><th>Thu vào</th><th>Chi ra</th><th>Lợi nhuận</th><th>Số khoản</th></tr></thead>
+            <tbody id="monthly-tbody"><tr><td colspan="5" class="empty">Chưa có dữ liệu</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-/* ── PAGES ── */
-.page{display:none;flex:1;overflow-y:auto;padding:24px 28px;flex-direction:column;gap:20px}
-.page.active{display:flex}
-.page::-webkit-scrollbar{width:5px}
-.page::-webkit-scrollbar-track{background:transparent}
-.page::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+    <!-- ── PAGE: LEDGER ── -->
+    <div class="page" id="page-ledger">
+      <div class="ledger-toolbar">
+        <div class="filter-pills">
+          <button class="fpill active" onclick="filterEntries('all',this)">Tất cả</button>
+          <button class="fpill" onclick="filterEntries('thu',this)">Thu vào</button>
+          <button class="fpill" onclick="filterEntries('chi',this)">Chi ra</button>
+        </div>
+        <div class="ledger-tools">
+          <input class="search-input" id="search-input" type="text" placeholder="Tìm kiếm..." oninput="renderLedger()">
+          <select class="month-select" id="month-filter" onchange="renderLedger()">
+            <option value="">Tất cả tháng</option>
+          </select>
+        </div>
+      </div>
+      <div class="ledger-summary-bar" id="ledger-sum-bar"></div>
+      <div class="card" id="ledger-list"><div class="empty">Chưa có khoản nào</div></div>
+    </div>
 
-/* ── CARDS ── */
-.card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--radius);padding:20px;
-}
-.card-head{
-  display:flex;align-items:flex-start;justify-content:space-between;
-  margin-bottom:16px;gap:12px;
-}
-.card-title{font-size:15px;font-weight:600;color:var(--text)}
-.card-sub{font-size:12px;color:var(--text3);margin-top:2px}
-.see-all{
-  background:transparent;border:1px solid var(--border);
-  color:var(--text3);border-radius:7px;padding:5px 12px;
-  font-size:12px;cursor:pointer;white-space:nowrap;
-  font-family:'DM Sans',sans-serif;transition:all .15s;
-}
-.see-all:hover{border-color:var(--border2);color:var(--text2)}
+    <!-- ── PAGE: SETTINGS ── -->
+    <div class="page" id="page-settings">
+      <div class="settings-layout">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Thông tin tài khoản</div></div>
+          <div class="settings-body">
+            <div class="sfield">
+              <label>Tên hiển thị</label>
+              <input id="s-name" type="text" placeholder="Tên của bạn">
+            </div>
+            <div class="sfield">
+              <label>Email (không thể đổi)</label>
+              <input id="s-email" type="email" disabled>
+            </div>
+            <button class="save-btn" id="s-save-btn" onclick="saveSettings()">Lưu thay đổi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
 
-/* ── DASHBOARD KPI ── */
-.kpi-row{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:14px}
-.kpi-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--radius);padding:18px 20px;
-  transition:border-color .2s;
-}
-.kpi-card:hover{border-color:var(--border2)}
-.kpi-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
-.kpi-top{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.kpi-dot{width:7px;height:7px;border-radius:50%}
-.thu-dot{background:var(--thu)}
-.chi-dot{background:var(--chi)}
-.month-dot{background:var(--gold)}
-.kpi-val{
-  font-family:'Instrument Serif',serif;
-  font-size:22px;letter-spacing:-.5px;color:var(--text);
-  margin-bottom:4px;
-}
-.kpi-net .kpi-val{font-size:28px}
-.kpi-sub{font-size:11px;color:var(--text3)}
+<!-- MODAL: ADD / EDIT ENTRY -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title" id="modal-title">Thêm khoản mới</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
 
-/* ── CHART ROW ── */
-.charts-row{display:grid;grid-template-columns:1fr 280px;gap:16px}
-.chart-card .chart-wrap{height:180px}
-.chart-wrap{position:relative}
-.legend-row{display:flex;gap:12px;align-items:center}
-.leg{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px}
-.thu-leg{background:var(--thu-bg);color:var(--thu)}
-.chi-leg{background:var(--chi-bg);color:var(--chi)}
-.donut-card{display:flex;flex-direction:column}
-.donut-wrap{display:flex;justify-content:center;padding:12px 0 8px}
-.donut-labels{display:flex;flex-direction:column;gap:8px;margin-top:4px}
-.dl-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
-.dl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
-.dl-row b{margin-left:auto;color:var(--text);font-weight:600}
+    <div class="modal-type-switch">
+      <button class="mtype-btn active" id="mtype-thu" onclick="setEntryType('thu')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Thu vào
+      </button>
+      <button class="mtype-btn" id="mtype-chi" onclick="setEntryType('chi')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
+        Chi ra
+      </button>
+    </div>
 
-/* ── ENTRY ROWS ── */
-.entry-row{
-  display:flex;align-items:center;gap:12px;
-  padding:11px 0;
-  border-bottom:1px solid rgba(255,255,255,.04);
-  transition:background .15s;
-}
-.entry-row:last-child{border-bottom:none}
-.entry-row:hover{background:rgba(255,255,255,.02);margin:0 -8px;padding-left:8px;padding-right:8px;border-radius:8px}
-.entry-ico{
-  width:34px;height:34px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;font-weight:700;flex-shrink:0;
-}
-.ico-thu{background:var(--thu-bg);color:var(--thu)}
-.ico-chi{background:var(--chi-bg);color:var(--chi)}
-.entry-mid{flex:1;min-width:0}
-.entry-cat{font-size:13px;font-weight:500;color:var(--text)}
-.entry-note{font-size:11px;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.entry-right{text-align:right}
-.entry-amt{font-size:14px;font-weight:700;letter-spacing:-.3px}
-.entry-date{font-size:11px;color:var(--text3);margin-top:2px}
-.entry-actions{display:flex;gap:4px;opacity:0;transition:opacity .15s}
-.entry-row:hover .entry-actions{opacity:1}
-.entry-actions button{
-  width:26px;height:26px;border-radius:7px;
-  border:1px solid var(--border);background:transparent;
-  color:var(--text3);cursor:pointer;font-size:12px;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
-}
-.entry-actions button:hover{background:var(--card2);color:var(--text2)}
-.entry-actions .del-btn:hover{background:var(--chi-bg);color:var(--chi);border-color:var(--chi)}
+    <div class="modal-body">
+      <div class="mfield">
+        <label>Số tiền (VNĐ) <span class="req">*</span></label>
+        <input class="amount-inp" id="m-amount" type="number" placeholder="0" oninput="updateAmountPreview()">
+        <div class="amount-preview" id="m-amount-preview"></div>
+      </div>
 
-.date-group{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 0 6px;
-  border-bottom:1px solid var(--border);
-  margin-bottom:4px;
-}
-.dg-label{font-size:12px;font-weight:600;color:var(--text2)}
-.dg-stats{font-size:11px;display:flex;align-items:center;gap:6px}
-.dg-sep{color:var(--text3)}
+      <div class="mfield-row">
+        <div class="mfield">
+          <label>Danh mục <span class="req">*</span></label>
+          <select id="m-category"></select>
+        </div>
+        <div class="mfield">
+          <label>Ngày <span class="req">*</span></label>
+          <input id="m-date" type="date">
+        </div>
+      </div>
 
-/* ── STATS PAGE ── */
-.stats-top{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start}
-.stat-net-card{
-  background:linear-gradient(135deg,#0f1f35,#0d1117);
-  border:1px solid var(--border2);
-  border-radius:var(--radius);padding:24px 26px;
-}
-.sn-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
-.sn-val{
-  font-family:'Instrument Serif',serif;
-  font-size:34px;letter-spacing:-1px;margin-bottom:6px;
-}
-.sn-sub{font-size:12px;color:var(--text3)}
-.stat-minis{display:flex;flex-direction:column;gap:10px}
-.stat-mini{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:10px;padding:14px 16px;min-width:160px;
-}
-.sm-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
-.thu-mini .sm-label{color:var(--thu)}
-.chi-mini .sm-label{color:var(--chi)}
-.neutral-mini .sm-label{color:var(--text3)}
-.sm-val{font-size:18px;font-weight:700;letter-spacing:-.4px}
-.thu-mini .sm-val{color:var(--thu)}
-.chi-mini .sm-val{color:var(--chi)}
+      <div class="mfield">
+        <label>Ghi chú</label>
+        <input id="m-note" type="text" placeholder="Mô tả ngắn...">
+      </div>
+    </div>
 
-.stats-cats-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.cat-row{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.03)}
-.cat-row:last-child{border-bottom:none}
-.cat-info{display:flex;justify-content:space-between;margin-bottom:5px}
-.cat-name{font-size:13px;color:var(--text2)}
-.cat-pct{font-size:12px;color:var(--text3)}
-.cat-bar-wrap{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-bottom:4px}
-.cat-bar{height:100%;border-radius:2px;transition:width .4s ease}
-.cat-amt{font-size:12px;font-weight:600;color:var(--text)}
+    <input type="hidden" id="m-edit-id">
+    <div class="modal-foot">
+      <button class="modal-cancel" onclick="closeModal()">Hủy</button>
+      <button class="modal-save" id="modal-save-btn" onclick="saveEntry()">Lưu</button>
+    </div>
+  </div>
+</div>
 
-/* ── TABLE ── */
-.table-wrap{overflow-x:auto}
-.sum-table{width:100%;border-collapse:collapse}
-.sum-table th{
-  font-size:11px;font-weight:600;color:var(--text3);
-  text-transform:uppercase;letter-spacing:.4px;
-  text-align:left;padding:8px 12px;
-  border-bottom:1px solid var(--border);
-}
-.sum-table td{
-  padding:10px 12px;font-size:13px;
-  border-bottom:1px solid rgba(255,255,255,.03);
-}
-.sum-table tr:last-child td{border-bottom:none}
-.col-thu{color:var(--thu);font-weight:600}
-.col-chi{color:var(--chi);font-weight:600}
-
-/* ── LEDGER PAGE ── */
-.ledger-toolbar{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;flex-wrap:wrap;margin-bottom:4px;
-}
-.filter-pills{display:flex;gap:6px}
-.fpill{
-  padding:6px 14px;border-radius:20px;
-  border:1px solid var(--border);
-  background:transparent;color:var(--text3);
-  font-size:12px;font-weight:500;cursor:pointer;
-  font-family:'DM Sans',sans-serif;transition:all .15s;
-}
-.fpill:hover{border-color:var(--border2);color:var(--text2)}
-.fpill.active{background:var(--accent);border-color:var(--accent);color:#fff}
-.ledger-tools{display:flex;gap:8px;align-items:center}
-.search-input, .month-select{
-  background:var(--card2);border:1px solid var(--border);
-  border-radius:9px;padding:7px 12px;
-  color:var(--text);font-size:13px;
-  font-family:'DM Sans',sans-serif;outline:none;
-  transition:border-color .2s;
-}
-.search-input::placeholder{color:var(--text3)}
-.search-input:focus,.month-select:focus{border-color:var(--accent)}
-.month-select{cursor:pointer}
-
-.ledger-summary-bar{
-  display:flex;align-items:center;gap:10px;
-  font-size:13px;padding:10px 16px;
-  background:var(--card2);border:1px solid var(--border);
-  border-radius:10px;flex-wrap:wrap;
-}
-.lsb-item{font-weight:500}
-.lsb-sep{color:var(--text3)}
-.lsb-count{margin-left:auto;font-size:11px;color:var(--text3)}
-.thu-text{color:var(--thu)}
-.chi-text{color:var(--chi)}
-
-/* ── SETTINGS PAGE ── */
-.settings-layout{max-width:480px}
-.settings-body{display:flex;flex-direction:column;gap:14px;padding-top:4px}
-.sfield{display:flex;flex-direction:column;gap:6px}
-.sfield label{font-size:12px;font-weight:500;color:var(--text2)}
-.sfield input{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:9px;padding:10px 14px;
-  color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;
-  outline:none;transition:border-color .2s;
-}
-.sfield input:focus{border-color:var(--accent)}
-.sfield input:disabled{opacity:.4;cursor:not-allowed}
-.save-btn{
-  margin-top:4px;align-self:flex-start;
-  padding:9px 20px;border-radius:9px;
-  background:linear-gradient(135deg,var(--accent),#2563eb);
-  color:#fff;border:none;cursor:pointer;
-  font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;
-  display:flex;align-items:center;gap:8px;
-  transition:opacity .2s;
-}
-.save-btn:hover{opacity:.88}
-.save-btn:disabled{opacity:.5;cursor:not-allowed}
-
-/* ── MODAL ── */
-.modal-overlay{
-  position:fixed;inset:0;z-index:700;
-  background:rgba(0,0,0,.6);
-  backdrop-filter:blur(4px);
-  display:none;align-items:center;justify-content:center;
-  padding:20px;
-}
-.modal-overlay.on{display:flex}
-.modal{
-  background:var(--card);
-  border:1px solid var(--border2);
-  border-radius:18px;
-  width:100%;max-width:460px;
-  box-shadow:var(--sh2);
-  animation:slideUp .25s ease;
-}
-@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-.modal-head{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:20px 24px 0;
-}
-.modal-title{
-  font-family:'Instrument Serif',serif;
-  font-size:20px;color:var(--text);
-}
-.modal-close{
-  width:28px;height:28px;border-radius:8px;
-  background:var(--card2);border:1px solid var(--border);
-  color:var(--text3);cursor:pointer;font-size:14px;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
-}
-.modal-close:hover{background:var(--chi-bg);color:var(--chi)}
-
-.modal-type-switch{
-  display:grid;grid-template-columns:1fr 1fr;gap:8px;
-  padding:16px 24px 0;
-}
-.mtype-btn{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  padding:10px;border-radius:10px;
-  border:1.5px solid var(--border);
-  background:transparent;color:var(--text3);
-  font-size:13px;font-weight:600;cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  transition:all .2s;
-}
-.mtype-btn:hover{border-color:var(--border2);color:var(--text2)}
-#mtype-thu.active{background:var(--thu-bg);border-color:var(--thu);color:var(--thu)}
-#mtype-chi.active{background:var(--chi-bg);border-color:var(--chi);color:var(--chi)}
-
-.modal-body{
-  display:flex;flex-direction:column;gap:14px;
-  padding:16px 24px;
-}
-.mfield{display:flex;flex-direction:column;gap:6px}
-.mfield label{font-size:12px;font-weight:500;color:var(--text2)}
-.req{color:var(--chi)}
-.mfield input, .mfield select{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:9px;padding:10px 14px;
-  color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;
-  outline:none;transition:border-color .2s;
-}
-.mfield input:focus,.mfield select:focus{border-color:var(--accent)}
-.amount-inp{font-size:20px;font-weight:700;letter-spacing:-.3px}
-.amount-preview{font-size:12px;color:var(--thu);font-weight:600;margin-top:2px;min-height:16px}
-.mfield-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-
-.modal-foot{
-  display:flex;gap:10px;justify-content:flex-end;
-  padding:0 24px 20px;
-}
-.modal-cancel{
-  padding:10px 20px;border-radius:9px;
-  background:transparent;border:1px solid var(--border);
-  color:var(--text3);cursor:pointer;
-  font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;
-  transition:all .15s;
-}
-.modal-cancel:hover{border-color:var(--border2);color:var(--text2)}
-.modal-save{
-  padding:10px 24px;border-radius:9px;
-  background:linear-gradient(135deg,var(--accent),#2563eb);
-  color:#fff;border:none;cursor:pointer;
-  font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;
-  display:flex;align-items:center;gap:8px;
-  transition:opacity .2s;
-}
-.modal-save:hover{opacity:.88}
-.modal-save:disabled{opacity:.5;cursor:not-allowed}
-
-/* ── MISC ── */
-.empty{
-  padding:32px;text-align:center;
-  color:var(--text3);font-size:13px;
-}
-
-.spinner{
-  display:inline-block;width:13px;height:13px;
-  border:2px solid rgba(255,255,255,.3);border-top-color:#fff;
-  border-radius:50%;animation:spin .7s linear infinite;
-  vertical-align:middle;margin-right:6px;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* ── TOAST ── */
-.toast{
-  position:fixed;bottom:24px;right:24px;z-index:999;
-  background:var(--card2);border:1px solid var(--border2);
-  border-radius:11px;padding:12px 18px;
-  font-size:13px;color:var(--text);
-  box-shadow:var(--sh2);
-  display:none;max-width:320px;
-  animation:slideUp .25s ease;
-}
-.toast.on{display:block}
-.toast.ok{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.3);color:var(--thu)}
-.toast.err{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:var(--chi)}
+<div class="toast" id="toast"></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
